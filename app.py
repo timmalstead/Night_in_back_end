@@ -12,6 +12,6 @@ app = Flask(__name__)
 def index():
   return 'hi eder'
 
-
+# this runs the app run hwne the program starts
 if __name__ == '__main__':
   app.run(debug=DEBUG, port=PORT)
