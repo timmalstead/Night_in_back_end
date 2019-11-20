@@ -12,7 +12,7 @@ movie = Blueprint("movies", "movie")
 def get_all_movies():
     try: # model to dict = 
       movies = [model_to_dict(movie) for movie in models.Movie.select()]
-      print(movies)
+      print(movies, "THIS IS MOVIES")
       return jsonify(data=movies, status={"code":200, "messages" : "Success"})
     except models.DoesNotExist:
       return jsonify(data={}, status={"code":401, "message": "Error "})
