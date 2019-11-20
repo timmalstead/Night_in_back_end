@@ -1,32 +1,30 @@
 from flask import Flask, jsonify, g 
-
 from flask_cors import CORS
+from flask_login import LoginManager
+from resources.user import user 
 
-from resources.movies import movie 
-
-import models 
 
 DEBUG = True  # this give me errors 
 PORT = 8000 # Port the flask app is going to run on
 
+import models 
 
-# initializing the flask object and making an app out of it 
+from resources.user import user
+
+login_manager = LoginManager()
+
 app = Flask(__name__)
 CORS(app)
 
+app.secret_key = "LJAKLJLKJJLJKLSDJLKJASD" ## Need this to encode the session
+login_manager.init_app(app) # set up the sessions on the app
 
-# @app.route("/")
-# def index():
-#   return "hi eder"
-
-
-# @app.route("/json")
-# def movie():
-#   return jsonify(title="boo", genre="horror")
-
-# @app.route("/sayhi/<username>")
-# def hello(username):
-#   return "Hello {}".format(username)
+@login_manager.user_loader # decorator function, that will load the user object whenever we access the session, we can get the user
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None 
 
 
 @app.before_request #decorator function that runs before function
@@ -35,27 +33,18 @@ def before_request():
   g.db = models.DATABASE
   g.db.connect()
 
-# CORS connection here to REACT App, this is the url from heroku that will use our api 
-CORS(movie, origins=['https://localhost:3000'], 
-# allows cookies to be sent to our api
-supports_credentials=True)
-
-
-
-# Register blueprint here to models 
-app.register_blueprint(movie, url_prefix='/api/v1/movies')
-
-
 @app.after_request
 def after_request(response):
-# this close db connection after each request
   g.db.close()
-  return response #respone will be some json 
+  return response 
+
+
+CORS(user, origins=['https://localhost:3000'],supports_credentials=True)
+app.register_blueprint(user, url_prefix='/user')
 
 
 
 
-# this runs the app run hwne the program starts
 if __name__ == '__main__':
   models.initialize() #invokes function to create tables in models.py
   app.run(debug=DEBUG, port=PORT) 
