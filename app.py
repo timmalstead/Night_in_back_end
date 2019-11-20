@@ -3,7 +3,6 @@ from flask_cors import CORS
 from flask_login import LoginManager
 from resources.user import user 
 
-
 DEBUG = True  # this give me errors 
 PORT = 8000 # Port the flask app is going to run on
 
