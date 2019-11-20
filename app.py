@@ -1,5 +1,9 @@
 from flask import Flask, jsonify, g 
 
+from flask_cors import CORS
+
+from resources.movies import movie 
+
 import models 
 
 DEBUG = True  # this give me errors 
@@ -8,6 +12,7 @@ PORT = 8000 # Port the flask app is going to run on
 
 # initializing the flask object and making an app out of it 
 app = Flask(__name__)
+CORS(app)
 
 
 # @app.route("/")
@@ -29,6 +34,17 @@ def before_request():
 # this connect to a db before a request
   g.db = models.DATABASE
   g.db.connect()
+
+# CORS connection here to REACT App, this is the url from heroku that will use our api 
+CORS(movie, origins=['https://localhost:3000'], 
+# allows cookies to be sent to our api
+supports_credentials=True)
+
+
+
+# Register blueprint here to models 
+app.register_blueprint(movie, url_prefix='/api/v1/movies')
+
 
 @app.after_request
 def after_request(response):

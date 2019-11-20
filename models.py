@@ -4,7 +4,6 @@ from flask_login import UserMixin
 
 
 
-
 DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
 
 
@@ -64,6 +63,5 @@ def initialize(): #making the name up , defining  a method, so not calling rn
   
   DATABASE.connect()
   DATABASE.create_tables([night_in], safe=True) #if table was created do no delete it 
-
   print("TABLES Created")
   DATABASE.close()
