@@ -1,4 +1,4 @@
-import datatime
+import datetime 
 from peewee import * 
 from flask_login import UserMixin 
 
@@ -13,11 +13,11 @@ class BaseModel(Model):
  class Meta:
     database = DATABASE
 
-class User(BaseModel):
+class User(UserMixin,BaseModel):
   username = CharField(unique=True)
   email = CharField(unique=True)
   password = CharField()
-  phone = CharField(10)
+  phone = CharField(10, default = 0)
 
 class saved_movies(BaseModel):
   user = ForeignKeyField(User, backref='saved_movies')
@@ -62,6 +62,6 @@ class nights(BaseModel):
 def initialize(): #making the name up , defining  a method, so not calling rn 
   
   DATABASE.connect()
-  DATABASE.create_tables([night_in], safe=True) #if table was created do no delete it 
+  DATABASE.create_tables([User,saved_movies,saved_foods,food_prefs,nights], safe=True) #if table was created do no delete it 
   print("TABLES Created")
   DATABASE.close()
