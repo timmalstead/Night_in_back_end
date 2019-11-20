@@ -12,6 +12,7 @@ PORT = 8000 # Port the flask app is going to run on
 
 # initializing the flask object and making an app out of it 
 app = Flask(__name__)
+CORS(app)
 
 
 # @app.route("/")
