@@ -1,4 +1,4 @@
-scrape = [{"url": "http://publicdomainmovie.net/movie/night-of-the-living-dead-3",
+[{"url": "http://publicdomainmovie.net/movie/night-of-the-living-dead-3",
   "genre": "Horror",
   "image": "http://publicdomainmovie.net/wikimedia.php?id=Night_of_the_Living_Dead_pub.jpg",
   "title": "Night of the Living Dead",
