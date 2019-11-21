@@ -7,7 +7,6 @@ from flask_login import UserMixin
 DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
 
 
-
 #BaseModel allows us not to have put class meta on every table
 class BaseModel(Model):
  class Meta:
