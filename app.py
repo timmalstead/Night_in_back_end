@@ -38,7 +38,7 @@ def after_request(response):
   return response 
 
 
-CORS(user, origins=['https://localhost:3000'],supports_credentials=True)
+CORS(user, origins=['http://localhost:3000'],supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
 
 
