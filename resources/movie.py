@@ -9,12 +9,8 @@ movie = Blueprint('movie','movie')
 @movie.route('/',methods=["GET"])
 def fetch_by_genre():
     
-        
         movies = [model_to_dict(movie) for movie in models.movie.select()]
-        thing = jsonify(movies)
-        print(thing)
-
-        
+    
         return jsonify(data=movies, status={"code": 200, "message": "Success"})
 
         
