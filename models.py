@@ -27,6 +27,13 @@ class saved_food(BaseModel):
   user = ForeignKeyField(User, backref='saved_foods') 
   meal_id = CharField()
 
+class movie(BaseModel):
+  url = CharField()
+  genre = CharField()
+  image = CharField()
+  title = CharField()
+  year = IntegerField()
+
 class food_pref(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs')
   beef = BooleanField(default = False)
@@ -44,9 +51,25 @@ class food_pref(BaseModel):
   vegan = BooleanField(default = False)
   vegetarian = BooleanField(default = False)
 
-# class movie_prefs(BaseModel):
-#   user = ForeignKeyField(User, backref='movie_prefs'):
-# TBA
+class movie_pref(BaseModel):
+  user = ForeignKeyField(User, backref='movie_prefs')
+  horror = BooleanField(default = False)
+  comedy = BooleanField(default = False)
+  romance = BooleanField(default = False)
+  animation = BooleanField(default = False)
+  drama = BooleanField(default = False)
+  sci_fi = BooleanField(default = False)
+  crime = BooleanField(default = False)
+  mystery = BooleanField(default = False)
+  adventure = BooleanField(default = False)
+  thriller = BooleanField(default = False)
+  fantasy = BooleanField(default = False)
+  musical = BooleanField(default = False)
+  silent = BooleanField(default = False)
+  western = BooleanField(default = False)
+  war = BooleanField(default = False)
+  action = BooleanField(default = False)
+  biography = BooleanField(default = False)
 
 class night(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs')
@@ -62,6 +85,6 @@ class night(BaseModel):
 def initialize(): #making the name up , defining  a method, so not calling rn 
   
   DATABASE.connect()
-  DATABASE.create_tables([User,saved_movie,saved_food,food_pref,night], safe=True) #if table was created do no delete it 
+  DATABASE.create_tables([User,saved_movie,movie,saved_food,food_pref,movie_pref,night], safe=True) #if table was created do no delete it 
   print("TABLES Created")
   DATABASE.close()
