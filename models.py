@@ -27,12 +27,14 @@ class saved_food(BaseModel):
   user = ForeignKeyField(User, backref='saved_foods') 
   meal_id = CharField()
 
-class movie(BaseModel):
+class movie(Model):
   url = CharField()
   genre = CharField()
   image = CharField()
   title = CharField()
   year = IntegerField()
+  class Meta:
+    database = DATABASE
 
 class food_pref(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs')
