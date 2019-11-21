@@ -39,7 +39,7 @@ def login():
             del user_dict['password']
             login_user(user)
             print(user, ' this is user')
-            return jsonify(data=user_dict, status={"code": 200, "message": "Success"})
+            return jsonify(data=user_dict, status={"code": 200, "message": "Success, your are logged in"})
         else:
             return jsonify(data={}, status={"code": 401, "message": "Username or Password is incorrect"})
     except models.DoesNotExist:
