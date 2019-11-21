@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, g 
 from flask_cors import CORS
 from flask_login import LoginManager
-from resources.user import user 
 
 DEBUG = True  # this give me errors 
 PORT = 8000 # Port the flask app is going to run on
@@ -9,6 +8,7 @@ PORT = 8000 # Port the flask app is going to run on
 import models 
 
 from resources.user import user
+from resources.movie import movie
 
 login_manager = LoginManager()
 
@@ -41,6 +41,8 @@ def after_request(response):
 CORS(user, origins=['http://localhost:3000'],supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
 
+CORS(movie, origins=['http://localhost:3000'],supports_credentials=True)
+app.register_blueprint(movie, url_prefix='/movie')
 
 
 
