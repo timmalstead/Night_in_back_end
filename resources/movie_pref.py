@@ -1,27 +1,41 @@
-# UNDER CONSTRUCTION 
+import models 
+from flask import request, jsonify, Blueprint 
+from playhouse.shortcuts import model_to_dict
+movie_pref = Blueprint('movie_pref', 'movie_pref')
 
-# import models 
+@movie_pref.route('/register',methods=["POST"])
+def register():
+    payload = request.get_json()
+    pref = models.movie_pref.create(**payload)
+    print(pref)
+    pref_dict = model_to_dict(pref)
+    return jsonify(data=pref_dict, status={"code":201,"message":"Success"})
 
-# from flask import request, jsonify, Blueprint 
+@movie_pref.route('/<user_id>',methods=["GET"])
+def fetch_by_user(user_id):
+    print(user_id) 
+    user = models.User.get_by_id(user_id)
 
-# from playhouse.shortcuts import model_to_dict
+    
+    pref = models.movie_pref.select().get()
+    user_model = user.movie_prefs.get()
+    # print(type(pref))
+    # print(type(user_model))
+    # print(user_model)
 
-# movie_pref = Blueprint('movie_prefs', 'movie_pref')
 
-# @movie_pref.route('/',methods=["POST"])
-# def register():
-#     payload = request.get_json()
+    
+    
+    return jsonify(data=model_to_dict(user_model), status={"code":201,"message":"Success"})
 
-#     try:
-#         models.movie_pref.get(models.movie_pref.user === payload ['user_id'])
-#         return jsonify(data={}, status={"code":401, "message":"A user with that email already exists"})
-#     except models.DoesNotExist:
-#         movie_pref = models.movie_pref.create(**payload)
+@movie_pref.route('/<user_id>',methods=["PUT"])
+def update_movie_prefs(user_id):
+    payload = request.get_json()
+    user = models.User.get_by_id(user_id)
+    user_model = user.movie_prefs.get()
+    query = user_model.update(**payload)
+    query.execute()
+    user1 = models.User.get_by_id(user_id)
+    user_model1 = user.movie_prefs.get()
 
-#         movie_pref_dict = model_to_dict(list)
-#         return jsonify(data = list_dict, status={"code": 201, "message": "Success"})
-        
-# @movie_pref.route('/',methods=["GET"])
-# def get_movie_pref():
-#     try:
-#         movie_prefs = [model_to_dict(movie_pref) for movie_pref in modles.movie_pref.select().where(movie_pref.user == )
+    return jsonify(data=model_to_dict(user_model1), status={"code":201,"message":"Success"})
