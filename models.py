@@ -74,7 +74,7 @@ class movie_pref(BaseModel):
   biography = BooleanField(default = False)
 
 class night(BaseModel):
-  user = ForeignKeyField(User, backref='food_prefs')
+  user = ForeignKeyField(User, backref='nights')
   movie_id = CharField()
   meal_id=CharField()
   created_at = DateTimeField(default=datetime.datetime.now)

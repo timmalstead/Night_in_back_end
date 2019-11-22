@@ -10,6 +10,7 @@ import models
 from resources.user import user
 from resources.movie import movie
 from resources.movie_pref import movie_pref
+from resources.food_pref import food_pref
 
 login_manager = LoginManager()
 
@@ -47,6 +48,9 @@ app.register_blueprint(movie, url_prefix='/movie')
 
 CORS(movie_pref, origins=['http://localhost:3000'],supports_credentials=True)
 app.register_blueprint(movie_pref, url_prefix='/movie_pref')
+
+CORS(food_pref, origins=['http://localhost:3000'],supports_credentials=True)
+app.register_blueprint(food_pref, url_prefix='/food_pref')
 
 
 

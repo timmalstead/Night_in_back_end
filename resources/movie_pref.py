@@ -13,26 +13,29 @@ def register():
 
 @movie_pref.route('/<user_id>',methods=["GET"])
 def fetch_by_user(user_id):
-    # user = models.User.get_by_id(user_id)
-    pref = models.movie_pref.select()
-    # .where(movie_pref.user == user_id)
+    print(user_id) 
+    user = models.User.get_by_id(user_id)
+
     
-    return jsonify(data=model_to_dict(pref), status={"code":201,"message":"Success"})
+    pref = models.movie_pref.select().get()
+    user_model = user.movie_prefs.get()
+    # print(type(pref))
+    # print(type(user_model))
+    # print(user_model)
 
-# @movie_pref.route('/',methods=["POST"])
-# def register():
-#     payload = request.get_json()
 
-#     try:
-#         models.movie_pref.get(models.movie_pref.user === payload ['user_id'])
-#         return jsonify(data={}, status={"code":401, "message":"A user with that email already exists"})
-#     except models.DoesNotExist:
-#         movie_pref = models.movie_pref.create(**payload)
+    
+    
+    return jsonify(data=model_to_dict(user_model), status={"code":201,"message":"Success"})
 
-#         movie_pref_dict = model_to_dict(list)
-#         return jsonify(data = list_dict, status={"code": 201, "message": "Success"})
-        
-# @movie_pref.route('/',methods=["GET"])
-# def get_movie_pref():
-#     try:
-#         movie_prefs = [model_to_dict(movie_pref) for movie_pref in modles.movie_pref.select().where(movie_pref.user == )
+@movie_pref.route('/<user_id>',methods=["PUT"])
+def update_movie_prefs(user_id):
+    payload = request.get_json()
+    user = models.User.get_by_id(user_id)
+    user_model = user.movie_prefs.get()
+    query = user_model.update(**payload)
+    query.execute()
+    user1 = models.User.get_by_id(user_id)
+    user_model1 = user.movie_prefs.get()
+
+    return jsonify(data=model_to_dict(user_model1), status={"code":201,"message":"Success"})
