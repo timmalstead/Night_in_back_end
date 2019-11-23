@@ -11,6 +11,7 @@ from resources.user import user
 from resources.movie import movie
 from resources.movie_pref import movie_pref
 from resources.food_pref import food_pref
+from resources.saved_movie import saved_movie
 
 login_manager = LoginManager()
 
@@ -51,6 +52,9 @@ app.register_blueprint(movie_pref, url_prefix='/movie_pref')
 
 CORS(food_pref, origins=['http://localhost:3000'],supports_credentials=True)
 app.register_blueprint(food_pref, url_prefix='/food_pref')
+
+CORS(saved_movie, origins=['http://localhost:3000'],supports_credentials=True)
+app.register_blueprint(saved_movie, url_prefix='/saved_movie')
 
 
 
