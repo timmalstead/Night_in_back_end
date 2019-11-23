@@ -26,7 +26,7 @@ def update_movie_prefs(user_id):
     user_model = user.movie_prefs.get()
     query = user_model.update(**payload)
     query.execute()
-    user1 = models.User.get_by_id(user_id)
-    user_model1 = user.movie_prefs.get()
+    updated_user = models.User.get_by_id(user_id)
+    updated_user_model = user.movie_prefs.get()
 
-    return jsonify(data=model_to_dict(user_model1), status={"code":201,"message":"Success"})
+    return jsonify(data=model_to_dict(updated_user_model1), status={"code":201,"message":"Success"})
