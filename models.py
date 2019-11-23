@@ -18,15 +18,6 @@ class User(UserMixin,BaseModel):
   email = CharField(unique=True)
   password = CharField()
   phone = CharField(10, default = 0)
-
-class saved_movie(BaseModel):
-  user = ForeignKeyField(User, backref='saved_movies')
-  movie_id = CharField()
-
-class saved_food(BaseModel):
-  user = ForeignKeyField(User, backref='saved_foods') 
-  meal_id = CharField()
-
 class movie(Model):
   url = CharField()
   genre = CharField()
@@ -35,6 +26,15 @@ class movie(Model):
   year = IntegerField()
   class Meta:
     database = DATABASE
+
+class saved_movie(BaseModel):
+  user = ForeignKeyField(User, backref='saved_movies')
+  movie_id = ForeignKeyField(movie, backref='favorite')
+
+class saved_food(BaseModel):
+  user = ForeignKeyField(User, backref='saved_foods') 
+  meal_id = CharField()
+
 
 class food_pref(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs')
@@ -72,7 +72,7 @@ class movie_pref(BaseModel):
   war = BooleanField(default = False)
   action = BooleanField(default = False)
   biography = BooleanField(default = False)
-
+#Stretch feature below 
 class night(BaseModel):
   user = ForeignKeyField(User, backref='nights')
   movie_id = CharField()
