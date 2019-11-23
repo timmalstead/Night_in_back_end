@@ -7,7 +7,7 @@ movie = Blueprint('movie','movie')
 
 #By single genre 
 @movie.route('/',methods=["GET"])
-def fetch_by_genre():
+def fetch_movies():
     
         movies = [model_to_dict(movie) for movie in models.movie.select()]
     

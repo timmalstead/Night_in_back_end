@@ -15,17 +15,8 @@ def register():
 def fetch_by_user(user_id):
     print(user_id) 
     user = models.User.get_by_id(user_id)
-
-    
     pref = models.movie_pref.select().get()
-    user_model = user.movie_prefs.get()
-    # print(type(pref))
-    # print(type(user_model))
-    # print(user_model)
-
-
-    
-    
+    user_model = user.movie_prefs.get()    
     return jsonify(data=model_to_dict(user_model), status={"code":201,"message":"Success"})
 
 @movie_pref.route('/<user_id>',methods=["PUT"])
