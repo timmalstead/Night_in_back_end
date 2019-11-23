@@ -28,16 +28,16 @@ class movie(Model):
     database = DATABASE
 
 class saved_movie(BaseModel):
-  user = ForeignKeyField(User, backref='saved_movies')
-  movie_id = ForeignKeyField(movie, backref='favorite')
+  user = ForeignKeyField(User, backref='saved_movies', on_delete='CASCADE',on_update = 'CASCADE')
+  movie_id = ForeignKeyField(movie, backref='favorite', on_delete='CASCADE',on_update = 'CASCADE')
 
 class saved_food(BaseModel):
-  user = ForeignKeyField(User, backref='saved_foods') 
+  user = ForeignKeyField(User, backref='saved_foods', on_delete='CASCADE',on_update = 'CASCADE') 
   meal_id = CharField()
 
 
 class food_pref(BaseModel):
-  user = ForeignKeyField(User, backref='food_prefs')
+  user = ForeignKeyField(User, backref='food_prefs', on_delete='CASCADE',on_update = 'CASCADE')
   beef = BooleanField(default = False)
   breakfast = BooleanField(default = False)
   chicken = BooleanField(default = False)
@@ -54,7 +54,7 @@ class food_pref(BaseModel):
   vegetarian = BooleanField(default = False)
 
 class movie_pref(BaseModel):
-  user = ForeignKeyField(User, backref='movie_prefs')
+  user = ForeignKeyField(User, backref='movie_prefs', on_delete='CASCADE',on_update = 'CASCADE')
   horror = BooleanField(default = False)
   comedy = BooleanField(default = False)
   romance = BooleanField(default = False)
@@ -74,7 +74,7 @@ class movie_pref(BaseModel):
   biography = BooleanField(default = False)
 #Stretch feature below 
 class night(BaseModel):
-  user = ForeignKeyField(User, backref='nights')
+  user = ForeignKeyField(User, backref='nights', on_delete='CASCADE' ,on_update = 'CASCADE')
   movie_id = CharField()
   meal_id=CharField()
   created_at = DateTimeField(default=datetime.datetime.now)
