@@ -19,11 +19,8 @@ def get_users_favorite(id):
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
 
-
-
 @saved_movie.route('/<id>',methods=["DELETE"]) #id of saved_movie
 def delete_favorite(id):
     query = models.saved_movie.delete().where(models.saved_movie.id == id)
     query.execute()
     return jsonify(data='resource successfully deleted', status={"code": 200, "message": "resource deleted successfully"})
-    
