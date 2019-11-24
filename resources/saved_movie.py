@@ -16,6 +16,9 @@ def get_users_favorite(id):
     try:
         user = models.User.get_by_id(id)
         favorites = [model_to_dict(movie) for movie in user.saved_movies.select()]
+        print(favorites)
+        for favorite in favorites:
+            del favorite['user']
         return jsonify(data=favorites, status={"code": 200, "message": "resource deleted successfully"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})

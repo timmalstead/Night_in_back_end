@@ -16,10 +16,11 @@ def get_users_favorite(id):
     try:
         user = models.User.get_by_id(id)
         favorites = [model_to_dict(food) for food in user.saved_foods.select()]
+        for favorite in favorites:
+            del favorite['user'] # again may not need this
         return jsonify(data=favorites, status={"code": 200, "message": "resource deleted successfully"})
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
-
 
 
 @saved_food.route('/<id>',methods=["DELETE"]) #id of saved_movie
