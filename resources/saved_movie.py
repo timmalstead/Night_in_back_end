@@ -8,6 +8,7 @@ def create_favorite():
     payload = request.get_json()
     favorite = models.saved_movie.create(**payload)
     favorite_dict = model_to_dict(favorite)
+    del favorite_dict['user']
     return jsonify(data=favorite_dict, status = {"code": 201, "message": "Success"})
 
 @saved_movie.route('/<id>',methods=["GET"]) #id of user

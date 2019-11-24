@@ -8,6 +8,7 @@ def create_favorite():
     payload = request.get_json()
     favorite = models.saved_food.create(**payload)
     favorite_dict = model_to_dict(favorite)
+    del favorite_dict['user'] #may not need this line
     return jsonify(data=favorite_dict, status = {"code": 201, "message": "Success"})
 
 @saved_food.route('/<id>',methods=["GET"]) #id of user
