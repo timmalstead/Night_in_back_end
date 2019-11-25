@@ -25,7 +25,7 @@ def get_users_favorite(id):
 
 @saved_food.route('/<id>',methods=["DELETE"]) #id of saved_movie
 def delete_favorite(id):
-    query = models.saved_foods.delete().where(models.saved_foods.id == id)
+    query = models.saved_food.delete().where(models.saved_food.id == id)
     query.execute()
     return jsonify(data='resource successfully deleted', status={"code": 200, "message": "resource deleted successfully"})
     
