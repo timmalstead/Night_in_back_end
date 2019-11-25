@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, g 
 from flask_cors import CORS
 from flask_login import LoginManager
@@ -41,26 +43,29 @@ def after_request(response):
   g.db.close()
   return response 
 
+#you will need to add front end url comma separated after 3000'
 
-CORS(user, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(user, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
 
-CORS(movie, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(movie, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(movie, url_prefix='/movie')
 
-CORS(movie_pref, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(movie_pref, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(movie_pref, url_prefix='/movie_pref')
 
-CORS(food_pref, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(food_pref, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(food_pref, url_prefix='/food_pref')
 
-CORS(saved_movie, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(saved_movie, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(saved_movie, url_prefix='/saved_movie')
 
-CORS(saved_food, origins=['http://localhost:3000'],supports_credentials=True)
+CORS(saved_food, origins=['http://localhost:3000', 'https://night-in.herokuapp.com/'],supports_credentials=True)
 app.register_blueprint(saved_food, url_prefix='/saved_food')
 
-
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 if __name__ == '__main__':
   models.initialize() #invokes function to create tables in models.py

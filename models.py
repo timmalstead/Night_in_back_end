@@ -1,10 +1,14 @@
+import os
+
+from playhouse.db_url import connect
+
 import datetime 
 from peewee import * 
 from flask_login import UserMixin 
 
 
-
-DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
 
 
 
