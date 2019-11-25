@@ -61,6 +61,7 @@ def delete():
     user = models.User.get_by_id(str(current_user))
     print(current_user)
     user.delete().execute()
+    logout_user()
     return jsonify(data='user account successfully deleted', status={"code":200, "message": "resource deleted successfully"})
 #edit
 
