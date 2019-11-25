@@ -68,7 +68,7 @@ def delete():
 @login_required
 def update_user():
     payload = request.get_json()
-    payload['password']= generate_password_hash(payload['password'])
+    # payload['password']= generate_password_hash(payload['password'])
     query = models.User.update(**payload).where(models.User.id==str(current_user))
     query.execute()
     return jsonify(data=model_to_dict(models.User.get_by_id(str(current_user))), status={"code": 200, "message": "resource updated successfully"})
