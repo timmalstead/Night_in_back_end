@@ -34,7 +34,7 @@ class saved_movie(BaseModel):
 class saved_food(BaseModel):
   user = ForeignKeyField(User, backref='saved_foods', on_delete='CASCADE',on_update = 'CASCADE') 
   meal_id = CharField()
-
+  recipe_title = CharField()
 
 class food_pref(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs', on_delete='CASCADE',on_update = 'CASCADE')
