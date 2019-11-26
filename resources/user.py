@@ -72,4 +72,6 @@ def update_user():
     payload = request.get_json()
     query = models.User.update(**payload).where(models.User.id==str(current_user))
     query.execute()
-    return jsonify(data=model_to_dict(models.User.get_by_id(str(current_user))), status={"code": 200, "message": "resource updated successfully"})
+    returned_user = model_to_dict(models.User.get_by_id(str(current_user)))
+    del returned_user['password']
+    return jsonify(data=returned_user, status={"code": 200, "message": "resource updated successfully"})
