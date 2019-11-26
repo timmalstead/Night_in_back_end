@@ -1,6 +1,7 @@
 import models 
 from flask import request, jsonify, Blueprint 
 from playhouse.shortcuts import model_to_dict
+
 movie_pref = Blueprint('movie_pref', 'movie_pref')
 
 @movie_pref.route('/register',methods=["POST"])
@@ -28,5 +29,4 @@ def update_movie_prefs(user_id):
     query.execute()
     updated_user = models.User.get_by_id(user_id)
     updated_user_model = user.movie_prefs.get()
-
     return jsonify(data=model_to_dict(updated_user_model1), status={"code":201,"message":"Success"})

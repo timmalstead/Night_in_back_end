@@ -5454,4 +5454,3 @@ data_source = [{"url": "http://publicdomainmovie.net/movie/night-of-the-living-d
 
 for data_dict in data_source: 
   models.movie.create(**data_dict)
-

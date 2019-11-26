@@ -51,9 +51,9 @@ def logout():
     
     logout_user()
     return ('you are logged out')
-
-
+    
 #delete
+
 @user.route('/delete',methods=["DELETE"])
 @login_required
 def delete():
@@ -63,13 +63,13 @@ def delete():
     user.delete().execute()
     logout_user()
     return jsonify(data='user account successfully deleted', status={"code":200, "message": "resource deleted successfully"})
+
 #edit
 
 @user.route('/edit',methods=["PUT"])
 @login_required
 def update_user():
     payload = request.get_json()
-    # payload['password']= generate_password_hash(payload['password'])
     query = models.User.update(**payload).where(models.User.id==str(current_user))
     query.execute()
     return jsonify(data=model_to_dict(models.User.get_by_id(str(current_user))), status={"code": 200, "message": "resource updated successfully"})

@@ -6,11 +6,8 @@ import datetime
 from peewee import * 
 from flask_login import UserMixin 
 
-
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
-
-
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = SqliteDatabase('night_in.sqlite',pragmas={'foreign_keys': 1})
 
 #BaseModel allows us not to have put class meta on every table
 class BaseModel(Model):
@@ -22,6 +19,7 @@ class User(UserMixin,BaseModel):
   email = CharField(unique=True)
   password = CharField()
   phone = CharField(10, default = 0)
+
 class movie(Model):
   url = CharField()
   genre = CharField()
@@ -39,6 +37,8 @@ class saved_food(BaseModel):
   user = ForeignKeyField(User, backref='saved_foods', on_delete='CASCADE',on_update = 'CASCADE') 
   meal_id = CharField()
   recipe_title = CharField()
+
+#Stretch features below
 
 class food_pref(BaseModel):
   user = ForeignKeyField(User, backref='food_prefs', on_delete='CASCADE',on_update = 'CASCADE')
@@ -76,17 +76,12 @@ class movie_pref(BaseModel):
   war = BooleanField(default = False)
   action = BooleanField(default = False)
   biography = BooleanField(default = False)
-#Stretch feature below 
+
 class night(BaseModel):
   user = ForeignKeyField(User, backref='nights', on_delete='CASCADE' ,on_update = 'CASCADE')
   movie_id = CharField()
   meal_id=CharField()
   created_at = DateTimeField(default=datetime.datetime.now)
-
-
-
-
-
 
 def initialize(): #making the name up , defining  a method, so not calling rn 
   

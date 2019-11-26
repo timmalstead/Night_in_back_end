@@ -1,6 +1,7 @@
 import models 
 from flask import request, jsonify, Blueprint 
 from playhouse.shortcuts import model_to_dict
+
 saved_movie = Blueprint('saved_movie', 'saved_movie')
 
 @saved_movie.route('/',methods=["POST"])
@@ -11,7 +12,7 @@ def create_favorite():
     del favorite_dict['user']
     return jsonify(data=favorite_dict, status = {"code": 201, "message": "Success"})
 
-@saved_movie.route('/<id>',methods=["GET"]) #id of user
+@saved_movie.route('/<id>',methods=["GET"])
 def get_users_favorite(id):
     try:
         user = models.User.get_by_id(id)
@@ -23,7 +24,7 @@ def get_users_favorite(id):
     except models.DoesNotExist:
         return jsonify(data={}, status={"code": 401, "message": "Error getting the resources"})
 
-@saved_movie.route('/<id>',methods=["DELETE"]) #id of saved_movie
+@saved_movie.route('/<id>',methods=["DELETE"])
 def delete_favorite(id):
     query = models.saved_movie.delete().where(models.saved_movie.id == id)
     query.execute()

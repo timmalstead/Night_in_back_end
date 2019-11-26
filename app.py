@@ -4,8 +4,8 @@ from flask import Flask, jsonify, g
 from flask_cors import CORS
 from flask_login import LoginManager
 
-DEBUG = True  # this give me errors 
-PORT = 8000 # Port the flask app is going to run on
+DEBUG = True
+PORT = 8000
 
 import models 
 
@@ -21,20 +21,19 @@ login_manager = LoginManager()
 app = Flask(__name__)
 CORS(app)
 
-app.secret_key = "LJAKLJLKJJLJKLSDJLKJASD" ## Need this to encode the session
-login_manager.init_app(app) # set up the sessions on the app
+app.secret_key = "LJAKLJLKJJLJKLSDJLKJASD"
+login_manager.init_app(app)
 
-@login_manager.user_loader # decorator function, that will load the user object whenever we access the session, we can get the user
+@login_manager.user_loader 
+
 def load_user(userid):
     try:
         return models.User.get(models.User.id == userid)
     except models.DoesNotExist:
         return None 
 
-
-@app.before_request #decorator function that runs before function
+@app.before_request 
 def before_request():
-# this connect to a db before a request
   g.db = models.DATABASE
   g.db.connect()
 
@@ -42,8 +41,6 @@ def before_request():
 def after_request(response):
   g.db.close()
   return response 
-
-#you will need to add front end url comma separated after 3000'
 
 CORS(user, origins=['http://localhost:3000', 'https://night-in.herokuapp.com'],supports_credentials=True)
 app.register_blueprint(user, url_prefix='/user')
